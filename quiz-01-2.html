@@ -1,0 +1,67 @@
+<!-- reactTemplate.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단위환산</title>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <!-- 리액트를 사용하는 코드 입력 -->
+
+    <script type="text/babel">
+    //애플리케이션 클래스 생성
+    class App extends React.Component{
+      constructor(props){
+        super(props);
+        this.state = {
+          input: 0,
+          output: 0,
+          scale: 10
+        };
+        this.handleInput = this.handleInput.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
+      }
+
+      handleInput(event){
+        const output = (this.state.input * this.state.scale).toFixed(2)
+        this.state({
+          input: event.state.value,
+          output: output
+        })
+      }
+
+      handleSelect(event){
+        const output = (this.state.input * this.state.scale).toFixed(2)
+        this.state({
+          scale: event.state.scale,
+          output: output
+        })
+      }
+
+      render(){
+        return <div>
+          <input value={this.state.input} 
+          onChange={this.handleInput}/>
+          <span>cm = {this.state.output}</span>
+          <select value={this.state.value} onChange={this.handleSelect}>
+            <option defaultValue value={10}>mm</option>
+            <option defaultValue value={0.01}>m</option>
+            <option defaultValue value={0.393701}>inch</option>
+          </select>
+          </div>
+        }
+      }
+
+     // 출력하기
+      const container = document.getElementById('root')
+      ReactDOM.render(<App />, container)
+    </script>
+</body>
+</html>
